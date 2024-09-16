@@ -1,4 +1,4 @@
-// Задача с грядками
+// Р—Р°РґР°С‡Р° СЃ РіСЂСЏРґРєР°РјРё
 using System;
 namespace ConsoleApp
 {
@@ -10,12 +10,12 @@ namespace ConsoleApp
             int l, m, k;
             l = 3; m = 3; k = 5;
 
-            Console.Write("Введите n: ");
+            Console.Write("Г‚ГўГҐГ¤ГЁГІГҐ n: ");
             int n = Convert.ToInt32(Console.ReadLine());
 
             int s = (k * 2 + l * (n + 1) + m * 2) * n;
 
-            Console.WriteLine("Расстояние: " + s);
+            Console.WriteLine("ГђГ Г±Г±ГІГ®ГїГ­ГЁГҐ: " + s);
 
             Console.ReadKey();
         }
