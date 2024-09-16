@@ -10,12 +10,12 @@ namespace ConsoleApp
             int l, m, k;
             l = 3; m = 3; k = 5;
 
-            Console.Write("Ââåäèòå n: ");
+            Console.Write("Введите n: ");
             int n = Convert.ToInt32(Console.ReadLine());
 
             int s = (k * 2 + l * (n + 1) + m * 2) * n;
 
-            Console.WriteLine("Ðàññòîÿíèå: " + s);
+            Console.WriteLine("Расстояние: " + s);
 
             Console.ReadKey();
         }
