@@ -1,3 +1,4 @@
+//перевернуть число и удалить нечётные цифры
 using System;
 using System.Collections.Generic;
 using System.Linq;
