@@ -1,19 +1,16 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ConsoleApplication25
+namespace CSharp
 {
-    class Program
+    internal class Program
     {
         static int count_0(int[] array)
         {
             int count = 0;
             for (int i = 0; i < array.Length; i++)
             {
-                if (array[i] == 0) {
+                if (array[i] == 0)
+                {
                     count++;
                 }
             }
@@ -21,16 +18,21 @@ namespace ConsoleApplication25
         }
         static int proizvedenie(int[] array)
         {
-            int p = 1;
-            for (int i = 0; i < array.Length; i++) {
+            bool b = false;
+            int p = 0;
+            for (int i = 0; i < array.Length; i++)
+            {
                 if (array[i] % 2 != 0)
-                p *= array[i];
+                    if (b == true) {
+                        p = 1;
+                    }
+                    p *= array[i];
             }
             return p;
         }
         static int[] array(int n)
         {
-            
+
             int[] arr = new int[n];
             Console.WriteLine("Введи элементы массива: ");
             for (int i = 0; i < n; i++)
@@ -61,7 +63,7 @@ namespace ConsoleApplication25
                 int n = Int32.Parse(Console.ReadLine());
                 int[] Array = new int[n];
                 Array = array(n);
-            
+
                 Console.Write("Количество кратных 3: ");
                 Console.WriteLine(kratn_3(Array));
                 Console.Write("Произведение нечётных элементов: ");
@@ -70,9 +72,6 @@ namespace ConsoleApplication25
                 Console.WriteLine(count_0(Array));
                 Console.ReadKey();
             }
-
-                
-
         }
     }
 }
