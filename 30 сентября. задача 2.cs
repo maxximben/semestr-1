@@ -1,5 +1,5 @@
 using System;
-
+//Определить минимальную длину подпоследовательности, состоящей из нулей
 namespace CSharp
 {
     internal class Program
