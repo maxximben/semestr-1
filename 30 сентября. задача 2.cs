@@ -23,6 +23,7 @@ namespace CSharp
             }
             if (len > 0) min = Math.Min(len, min);
             Console.WriteLine("минимальная длина: " + min);
+            Console.ReadKey();
         }
     }
 }
