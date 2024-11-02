@@ -27,6 +27,7 @@ namespace CSharp
             }
             Console.WriteLine("количество элементов, оканцивающхся на тройку: " + count_3(array));
             Console.WriteLine("суммы цифр элементов: " + string.Join(" ", sum_of_nums(array)));
+            Console.ReadKey();
             
         }
 
