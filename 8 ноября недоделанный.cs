@@ -1,22 +1,18 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ConsoleApplication
+namespace CSharp
 {
-    class Program
+    internal class Program
     {
-        static int[][] array (int n)
+        static int[][] array(int n)
         {
             int[][] arr = new int[n][];
             for (int i = 0; i < n; i++)
             {
-                Console.Write("введи размер строки " + (i+1) + ": ");
+                Console.Write("введи размер строки " + (i + 1) + " (как минимум 3): ");
                 int m = Int32.Parse(Console.ReadLine());
                 arr[i] = new int[m];
-                Console.WriteLine("введи элементы строки " + (i+1));
+                Console.WriteLine("введи элементы строки " + (i + 1));
                 for (int j = 0; j < m; j++)
                 {
                     arr[i][j] = Int32.Parse(Console.ReadLine());
@@ -27,20 +23,26 @@ namespace ConsoleApplication
 
         static void strings(int[][] arr)
         {
-            
             Console.WriteLine("равномерно убывающие последовательности:");
             for (int i = 0; i < arr.Length; i++)
             {
                 bool flag = true;
                 bool flag2 = true;
-                
-                for (int j = 0; j < arr[i].Length-1; j++)
-                {
 
-                    flag = arr[i][j] > arr[i][j + 1] ? true : false;
+                for (int j = 0; j < arr[i].Length - 1; j++)
+                {
+                    if (arr[i][j] <= arr[i][j + 1])
+                        flag = false;
                 }
-                Console.WriteLine(i);
-                Console.WriteLine(flag);
+                for (int j = 0; j < arr[i].Length-2; j++)
+                {
+                    if (arr[i][j] - arr[i][j + 1] != arr[i][j + 1] - arr[i][j + 2])
+                        flag2 = false;
+                }
+                if (flag && flag2)
+                {
+                    Console.WriteLine(i+1);
+                }
                 
             }
         }
