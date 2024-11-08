@@ -1,6 +1,7 @@
 // определить максимальную сумму подпоследовательности из чётных чисел
 using System;
-namespace ConsoleApp
+
+namespace CSharp
 {
     internal class Program
     {
@@ -8,14 +9,11 @@ namespace ConsoleApp
         {
             Console.Write("n = ");
             int n = Convert.ToInt32(Console.ReadLine());
-            int max_sum;
+            int max_sum = int.MinValue;
             int a = Convert.ToInt32(Console.ReadLine());
             int sum = a;
 
-            if (a % 2 == 0) max_sum = a;
-            else max_sum = 0;
-
-
+            
             for (int i = 0; i < n - 1; i++)
             {
                 int b = Convert.ToInt32(Console.ReadLine());
