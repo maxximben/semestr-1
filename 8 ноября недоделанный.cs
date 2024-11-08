@@ -1,5 +1,5 @@
 using System;
-
+//определить номера строк, элементы которых образуют равномерно убывающую последовательность
 namespace CSharp
 {
     internal class Program
