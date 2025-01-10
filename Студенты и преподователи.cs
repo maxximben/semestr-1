@@ -13,16 +13,20 @@
  * 
  */
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 class Program
 {
+    const int MaxStudents = 100;
+    const int MaxTeachers = 100;
+
     static void Main(string[] args)
     {
-        List<Student> students = new List<Student>();
-        List<Teacher> teachers = new List<Teacher>();
-        
+        Student[] students = new Student[MaxStudents];
+        Teacher[] teachers = new Teacher[MaxTeachers];
+        int studentCount = 0;
+        int teacherCount = 0;
+
         while (true)
         {
             Console.WriteLine("Меню:");
@@ -37,16 +41,17 @@ class Program
             switch (choice)
             {
                 case "1":
-                    FillData(students, teachers);
+                    studentCount = FillData(students, studentCount);
+                    teacherCount = FillTeachersData(teachers, teacherCount);
                     break;
                 case "2":
-                    PrintData(students, teachers);
+                    PrintData(students, studentCount, teachers, teacherCount);
                     break;
                 case "3":
-                    FilterStudentsByBirthYear(students);
+                    FilterStudentsByBirthYear(students, studentCount);
                     break;
                 case "4":
-                    FilterTeachersBySubject(teachers);
+                    FilterTeachersBySubject(teachers, teacherCount);
                     break;
                 case "5":
                     return;
@@ -57,9 +62,9 @@ class Program
         }
     }
 
-    static void FillData(List<Student> students, List<Teacher> teachers)
+    static int FillData(Student[] students, int studentCount)
     {
-        while (true)
+        while (studentCount < MaxStudents)
         {
             Console.WriteLine("Введите данные для студента (или нажмите Enter для завершения):");
             Console.Write("ФИО: ");
@@ -76,12 +81,14 @@ class Program
                 Console.WriteLine(" Оценка " + (i + 1));
                 grades[i] = int.Parse(Console.ReadLine());
             }
-            students.Add(new Student(studentName, studentBirthYear, grades));
+            students[studentCount++] = new Student(studentName, studentBirthYear, grades);
         }
+        return studentCount;
+    }
 
-
-
-        while (true)
+    static int FillTeachersData(Teacher[] teachers, int teacherCount)
+    {
+        while (teacherCount < MaxTeachers)
         {
             Console.WriteLine("Введите данные для преподавателя (или нажмите Enter для завершения):");
             Console.Write("ФИО: ");
@@ -93,54 +100,51 @@ class Program
             Console.Write("Предметы (через запятую): ");
             string subjectsInput = Console.ReadLine();
             string[] subjects = subjectsInput.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()).ToArray();
-            teachers.Add(new Teacher(teacherName, teacherBirthYear, subjects));
+            teachers[teacherCount++] = new Teacher(teacherName, teacherBirthYear, subjects);
         }
+        return teacherCount;
     }
 
-
-
-    static void PrintData(List<Student> students, List<Teacher> teachers)
+    static void PrintData(Student[] students, int studentCount, Teacher[] teachers, int teacherCount)
     {
         Console.WriteLine("Студенты: ");
-        foreach (var student in students)
+        for (int i = 0; i < studentCount; i++)
         {
-            Console.WriteLine(student);
+            Console.WriteLine(students[i]);
         }
 
         Console.WriteLine("Преподаватели: ");
-        foreach (var teacher in teachers)
+        for (int i = 0; i < teacherCount; i++)
         {
-            Console.WriteLine(teacher);
+            Console.WriteLine(teachers[i]);
         }
     }
 
-
-
-    static void FilterStudentsByBirthYear(List<Student> students)
+    static void FilterStudentsByBirthYear(Student[] students, int studentCount)
     {
         Console.Write("Введите год рождения для фильтрации студентов: ");
         int year = int.Parse(Console.ReadLine());
-        var filteredStudents = students.Where(s => s.BirthYear == year).ToList();
-
         Console.WriteLine("Студенты, родившиеся в " + year);
-        foreach (var student in filteredStudents)
+        for (int i = 0; i < studentCount; i++)
         {
-            Console.WriteLine(student);
+            if (students[i].BirthYear == year)
+            {
+                Console.WriteLine(students[i]);
+            }
         }
     }
 
-
-
-    static void FilterTeachersBySubject(List<Teacher> teachers)
+    static void FilterTeachersBySubject(Teacher[] teachers, int teacherCount)
     {
         Console.Write("Введите название дисциплины для фильтрации преподавателей: ");
         string subject = Console.ReadLine();
-        var filteredTeachers = teachers.Where(t => t.Subjects.Contains(subject)).ToList();
-
-        Console.WriteLine("Препедователи, ведуцие предмет " + subject + ":");
-        foreach (var teacher in filteredTeachers)
+        Console.WriteLine("Преподаватели, ведущие предмет " + subject + ":");
+        for (int i = 0; i < teacherCount; i++)
         {
-            Console.WriteLine(teacher);
+            if (teachers[i].Subjects.Contains(subject))
+            {
+                Console.WriteLine(teachers[i]);
+            }
         }
     }
 }
@@ -157,8 +161,6 @@ class People
     }
 }
 
-
-
 class Student : People
 {
     public int[] Grades { get; set; }
@@ -170,11 +172,9 @@ class Student : People
 
     public override string ToString()
     {
-        return FullName + " Год рождения " +  BirthYear + " Оценки " + string.Join(", ", Grades);
+        return FullName + " Год рождения " + BirthYear + " Оценки " + string.Join(", ", Grades);
     }
 }
-
-
 
 class Teacher : People
 {
@@ -187,6 +187,6 @@ class Teacher : People
 
     public override string ToString()
     {
-        return FullName + " Год рождения " +  BirthYear + " Предметы " + string.Join(", ", Subjects);
+        return FullName + " Год рождения " + BirthYear + " Предметы " + string.Join(", ", Subjects);
     }
 }
