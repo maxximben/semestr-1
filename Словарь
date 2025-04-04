@@ -1,0 +1,57 @@
+using System;
+using System.Collections.Generic;
+
+class Phone
+{
+    public string Number { get; set; }
+    public string FullName { get; set; }
+    public string Operator { get; set; }
+
+    public Phone(string number, string fullName, string operatorName)
+    {
+        Number = number;
+        FullName = fullName;
+        Operator = operatorName;
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Создаем список экземпляров класса Phone
+        List<Phone> phones = new List<Phone>
+        {
+            new Phone("8-900-123-45-67", "Иванов Иван Иванович", "МТС"),
+            new Phone("8-901-234-56-78", "Петров Петр Петрович", "Билайн"),
+            new Phone("8-902-345-67-89", "Сидоров Сидор Сидорович", "МТС"),
+            new Phone("8-903-456-78-90", "Алексеев Алексей Алексеевич", "МегаФон"),
+            new Phone("8-904-567-89-01", "Николаев Николай Николаевич", "МТС")
+        };
+
+        // Создаем словарь для подсчета частоты операторов
+        Dictionary<string, int> operatorFrequency = new Dictionary<string, int>();
+
+        // Заполняем словарь
+        foreach (Phone phone in phones)
+        {
+            if (operatorFrequency.ContainsKey(phone.Operator))
+            {
+                // Если оператор уже есть в словаре, увеличиваем счетчик
+                operatorFrequency[phone.Operator]++;
+            }
+            else
+            {
+                // Если оператора еще нет, добавляем его с начальным значением 1
+                operatorFrequency[phone.Operator] = 1;
+            }
+        }
+
+        // Выводим результаты
+        Console.WriteLine("Частота использования операторов связи:");
+        foreach (var pair in operatorFrequency)
+        {
+            Console.WriteLine($"Оператор: {pair.Key}, Количество: {pair.Value}");
+        }
+    }
+}
